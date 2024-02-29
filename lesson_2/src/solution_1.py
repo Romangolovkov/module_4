@@ -27,4 +27,4 @@ with open('sales.json', 'w', encoding='utf8') as file:
     json.dump(sales, file)
 
 with open('sales.json', 'r', encoding='utf8') as file:
-    sales = json.load(file, object_hook=calculation_revenue)
+    json.load(file, object_hook=calculation_revenue)

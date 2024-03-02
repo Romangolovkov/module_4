@@ -3,7 +3,7 @@ import json
 from json import JSONEncoder
 from datetime import date
 
-with open('clients.csv', 'w', encoding='utf8', newline='') as file:
+with open('clients.csv', 'w', encoding='utf-8', newline='') as file:
     writer: csv.writer = csv.writer(file)
     writer.writerow(['Name', 'Surname', 'Birthday', 'Bonuses'])
     writer.writerow(['Роман', 'Горбачёв', '28.01.1989', '9999999'])
@@ -54,7 +54,7 @@ class Client:
 clients: dict[str: list] = {"clients": []}
 uncorrect_clients: int = 0
 
-with open('clients.csv', 'r', encoding='utf8') as file:
+with open('clients.csv', 'r', encoding='utf-8') as file:
     clients_list: list[list[str]] = list(csv.reader(file))
     headers: list[str] = clients_list[0]
     for i in clients_list[1:]:
@@ -73,7 +73,7 @@ class CustomEncoder(JSONEncoder):
         return super().default(o)
 
 
-with open('clients.json', 'w', encoding='utf8') as file:
+with open('clients.json', 'w', encoding='utf-8') as file:
     json.dump(clients, file, ensure_ascii=False, cls=CustomEncoder)
     print(f'Было обработано(клиентов): {correct_clients}')
     print(f'Было пропущено(клиентов): {uncorrect_clients}')

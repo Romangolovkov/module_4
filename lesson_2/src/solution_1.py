@@ -13,21 +13,32 @@ sales: dict = {
       "category": "Посуда",
       "quantity": 2,
       "total_price": 700
+    },
+    {
+      "product": "Тарелка",
+      "category": "Посуда",
+      "quantity": 3,
+      "total_price": 300
     }
   ]
 }
 
-with open('sales.json', 'w', encoding='utf8') as file:
+with open('sales.json', 'w', encoding='utf-8') as file:
     json.dump(sales, file)
+
+revenue_by_category: dict[str: int] = dict()
 
 
 def calculation_revenue(dct: dict[str: str|int]) -> None:
     if "category" in dct and "quantity" in dct and "total_price" in dct:
-        print(f'Выручка по категории "{dct["category"]}": {dct["quantity"] * dct["total_price"]}')
+        if dct["category"] in revenue_by_category:
+            revenue_by_category[dct["category"]] += dct["quantity"] * dct["total_price"]
+        else:
+            revenue_by_category[dct["category"]] = dct["quantity"] * dct["total_price"]
+        
 
-def a(dct):
-    print(dct)
+with open('sales.json', 'r', encoding='utf-8') as file:
+    json.load(file, object_hook=calculation_revenue)
 
-with open('sales.json', 'r', encoding='utf8') as file:
-    json.load(file, object_hook=a)
-
+for category, revenue in revenue_by_category.items():
+    print(f'Выручка по категории "{category}": {revenue}')

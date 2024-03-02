@@ -12,12 +12,12 @@ inventory: dict = {
       "item": "Краска акриловая",
       "category": "Материалы",
       "quantity": 20,
-      "minimum_required": 150
+      "minimum_required": 15
     }
   ]
 }
 
-with open('inventory.json', 'w', encoding='utf8') as file:
+with open('inventory.json', 'w', encoding='utf-8') as file:
     json.dump(inventory, file)
 
 
@@ -27,5 +27,5 @@ def inventory_check(dct: dict[str: str|int]) -> None:
             print(f'Необходимо закупить: {dct["item"]} {dct["minimum_required"] - dct["quantity"]} шт.')
 
 
-with open('inventory.json', 'r', encoding='utf8') as file:
+with open('inventory.json', 'r', encoding='utf-8') as file:
     json.load(file, object_hook=inventory_check)

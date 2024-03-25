@@ -21,5 +21,20 @@ def world():
 """
 
 
+@app.route("/<NUMBER_ONE>/<NUMBER_TWO>/<OPERATION>")
+def operation(NUMBER_ONE: str, NUMBER_TWO: str, OPERATION: str):
+    NUMBER_ONE, NUMBER_TWO = float(NUMBER_ONE), float(NUMBER_TWO)
+    if OPERATION == '+':
+        return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE + NUMBER_TWO}'
+    elif OPERATION == '-':
+        return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE - NUMBER_TWO}'
+    elif OPERATION == '*':
+        return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE * NUMBER_TWO}'
+    elif OPERATION == ':':
+        return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE / NUMBER_TWO}'
+    else:
+        return 'В URL указана неверная арифметическая операция'
+
+
 if __name__ == "__main__":
     app.run()

@@ -26,7 +26,7 @@ def world():
 
 @app.route("/<NUMBER_ONE>/<NUMBER_TWO>/<OPERATION>")
 def operation(NUMBER_ONE: str, NUMBER_TWO: str, OPERATION: str):
-    NUMBER_ONE, NUMBER_TWO = float(NUMBER_ONE), float(NUMBER_TWO)
+    NUMBER_ONE, NUMBER_TWO = float(NUMBER_ONE.replace(',', '.')), float(NUMBER_TWO.replace(',', '.'))
     if OPERATION == '+':
         return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE + NUMBER_TWO}'
     elif OPERATION == '-':
@@ -34,7 +34,10 @@ def operation(NUMBER_ONE: str, NUMBER_TWO: str, OPERATION: str):
     elif OPERATION == '*':
         return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE * NUMBER_TWO}'
     elif OPERATION == ':':
-        return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE / NUMBER_TWO}'
+        if NUMBER_TWO == 0:
+            return "На ноль делить нельзя"
+        else:
+            return f'{NUMBER_ONE} {OPERATION} {NUMBER_TWO} = {NUMBER_ONE / NUMBER_TWO}'
     else:
         return 'В URL указана неверная арифметическая операция'
 
@@ -71,4 +74,4 @@ def get_users():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
